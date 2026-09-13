@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *, .popup-inverted *));
 
 @theme static {
   --color-white: oklch(1 0 0);
@@ -217,7 +217,9 @@
   --tabs: var(--color-white);
 }
 
-.dark {
+/* .popup-inverted is an always-dark theme scope, so popups don't need `dark` */
+.dark,
+.popup-inverted {
   --background: var(--color-graphite-975);
   --foreground: var(--color-graphite-100);
   --card: var(--color-graphite-950);
@@ -301,6 +303,34 @@
   }
 }
 
+/* Frosted, always-dark surface for Popover, DropdownMenu and Select, modeled on
+   Command inside a Popover. Components add layout only (size, padding,
+   overflow); surface, radius, item highlight and separators all live here. */
 @utility popup-inverted {
-  @apply relative isolate animate-none! bg-popover/70 text-popover-foreground shadow-sm ring-1 ring-foreground/10 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-foreground/10 **:data-[slot$=-separator]:bg-foreground/5 **:data-[slot$=-trigger]:focus:bg-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-foreground/10! **:data-[variant=destructive]:**:text-foreground! **:data-[variant=destructive]:text-foreground! **:data-[variant=destructive]:focus:bg-foreground/10!;
+  @apply relative isolate animate-none! rounded-3xl bg-popover/70 text-popover-foreground shadow-sm ring-1 ring-foreground/10 outline-hidden;
+  @apply before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150;
+
+  /* Active row: keyboard focus, Base UI highlight, cmdk selection, open submenu */
+  &
+    :is(
+      [data-slot="command-item"],
+      [data-slot="select-item"],
+      [data-slot^="dropdown-menu-"][data-slot$="item"],
+      [data-slot="dropdown-menu-sub-trigger"]
+    ):is(:focus, [data-highlighted], [data-selected="true"], [data-popup-open]) {
+    @apply bg-action-neutral text-foreground;
+
+    & > svg {
+      @apply text-foreground;
+    }
+  }
+
+  &
+    :is(
+      [data-slot="command-separator"],
+      [data-slot="dropdown-menu-separator"],
+      [data-slot="select-separator"]
+    ) {
+    @apply bg-foreground/5;
+  }
 }

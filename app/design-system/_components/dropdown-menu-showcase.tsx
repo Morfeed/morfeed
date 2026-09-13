@@ -43,9 +43,12 @@ export function DropdownMenuShowcase() {
     <Subsection>
       <Preview>
         <DropdownMenu>
-          <DropdownMenuTrigger render={<Button variant="outline" />}>
+          <DropdownMenuTrigger render={<Button variant="field" />}>
             Extension menu
-            <ChevronDownIcon data-icon="inline-end" />
+            <ChevronDownIcon
+              data-icon="inline-end"
+              className="text-neutral-foreground"
+            />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-64">
             <DropdownMenuGroup>

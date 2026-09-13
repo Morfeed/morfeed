@@ -25,7 +25,6 @@ import {
   ChevronRightIcon,
   DownloadIcon,
   ExternalLinkIcon,
-  EyeIcon,
   LinkIcon,
   MoreHorizontalIcon,
   SearchIcon,
@@ -49,7 +48,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -355,11 +353,6 @@ function RowActions({ post }: { post: CollectedPost }) {
           <ExternalLinkIcon />
           Open on {post.platform}
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <EyeIcon />
-          Always show this author
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
         <DropdownMenuItem variant="destructive">
           <BanIcon />
           Mute {post.author}

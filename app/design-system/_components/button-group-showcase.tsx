@@ -56,23 +56,6 @@ export function ButtonGroupShowcase() {
         </ButtonGroup>
       </Preview>
       <Preview>
-        <ButtonGroup>
-          <Button variant="outline">
-            <DownloadIcon />
-            JSON
-          </Button>
-          <ButtonGroupSeparator />
-          <Button variant="outline">CSV</Button>
-        </ButtonGroup>
-        <ButtonGroup>
-          <Button>Apply rule</Button>
-          <ButtonGroupSeparator />
-          <Button size="icon" aria-label="Apply to platforms">
-            <PlusIcon />
-          </Button>
-        </ButtonGroup>
-      </Preview>
-      <Preview>
         <ButtonGroup className="w-full">
           <ButtonGroupText>
             <ServerIcon />

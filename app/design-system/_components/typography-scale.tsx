@@ -212,9 +212,6 @@ export function TypographyScale() {
               <span className="text-xs text-neutral-foreground">
                 {style.source}
               </span>
-              <code className="font-mono text-[0.6875rem] break-words text-neutral-foreground">
-                {style.className}
-              </code>
             </div>
             <p className={style.className}>{style.sample}</p>
           </div>

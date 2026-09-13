@@ -43,6 +43,10 @@ function Toast({ className, ...props }: ToastPrimitive.Root.Props) {
       data-slot="toast"
       className={cn(
         "group/toast pointer-events-auto absolute right-0 bottom-0 z-[calc(1000-var(--toast-index))] w-full origin-bottom rounded-2xl border bg-popover text-popover-foreground shadow-sm will-change-transform outline-none select-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-halo",
+        "data-[type=success]:border-success/30 data-[type=success]:bg-success-subtle data-[type=success]:text-success",
+        "data-[type=info]:border-info/30 data-[type=info]:bg-info-subtle data-[type=info]:text-info",
+        "data-[type=warning]:border-warning/50 data-[type=warning]:bg-warning-subtle",
+        "data-[type=error]:border-danger/30 data-[type=error]:bg-danger-subtle data-[type=error]:text-danger",
         "[--gap:0.75rem] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))]",
         "h-(--height) [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1),opacity_500ms,height_150ms]",
         "after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-['']",
@@ -137,28 +141,21 @@ function ToastClose({
   )
 }
 
+const toastIcons: Record<string, React.ReactNode> = {
+  success: <CircleCheckIcon className="text-success" aria-hidden="true" />,
+  info: <InfoIcon className="text-info" aria-hidden="true" />,
+  warning: <TriangleAlertIcon className="text-warning" aria-hidden="true" />,
+  error: <OctagonXIcon className="text-danger" aria-hidden="true" />,
+  loading: (
+    <Loader2Icon
+      className="animate-spin text-neutral-foreground"
+      aria-hidden="true"
+    />
+  ),
+}
+
 function ToastIcon({ type }: { type: string | undefined }) {
-  let icon: React.ReactNode = null
-
-  if (type === "success") {
-    icon = <CircleCheckIcon aria-hidden="true" />
-  }
-
-  if (type === "info") {
-    icon = <InfoIcon aria-hidden="true" />
-  }
-
-  if (type === "warning") {
-    icon = <TriangleAlertIcon aria-hidden="true" />
-  }
-
-  if (type === "error") {
-    icon = <OctagonXIcon className="text-danger" aria-hidden="true" />
-  }
-
-  if (type === "loading") {
-    icon = <Loader2Icon className="animate-spin" aria-hidden="true" />
-  }
+  const icon = type ? toastIcons[type] : null
 
   if (!icon) {
     return null
